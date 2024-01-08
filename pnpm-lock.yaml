@@ -105,7 +105,7 @@ devDependencies:
     version: 3.2.3
   husky:
     specifier: ^7.0.4
-    version: 7.0.4
+    version: registry.npmmirror.com/husky@7.0.4
   jest:
     specifier: ^29.4.3
     version: 29.4.3(@types/node@18.14.0)(ts-node@10.9.1)
@@ -5076,13 +5076,6 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /ansi-escapes@4.3.2:
-    resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      type-fest: registry.npmmirror.com/type-fest@0.21.3
-    dev: true
-
   /ansi-html-community@0.0.8:
     resolution: {integrity: sha512-1APHAyr3+PCamwNw3bXCPp4HFLONZt/yIH0sZp0/469KWNTEy+qN5jQ3GVX6DMZ1UXAi34yVwtTeaG/HpBuuzw==}
     engines: {'0': node >= 0.8.0}
@@ -7156,7 +7149,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@types/eslint': 7.29.0
-      ansi-escapes: 4.3.2
+      ansi-escapes: registry.npmmirror.com/ansi-escapes@4.3.2
       chalk: registry.npmmirror.com/chalk@4.1.2
       eslint-rule-docs: 1.1.235
       log-symbols: registry.npmmirror.com/log-symbols@4.1.0
@@ -8588,12 +8581,6 @@ packages:
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-    dev: true
-
-  /husky@7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
-    hasBin: true
     dev: true
 
   /iconv-lite@0.4.24:
@@ -21098,6 +21085,14 @@ packages:
     name: human-signals
     version: 2.1.0
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  registry.npmmirror.com/husky@7.0.4:
+    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/husky/-/husky-7.0.4.tgz}
+    name: husky
+    version: 7.0.4
+    engines: {node: '>=12'}
+    hasBin: true
     dev: true
 
   registry.npmmirror.com/iconv-lite@0.6.3:

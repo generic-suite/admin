@@ -3,24 +3,44 @@
 
 declare namespace API {
   type CurrentUser = {
-    name?: string;
-    avatar?: string;
-    userid?: string;
-    email?: string;
-    signature?: string;
-    title?: string;
-    group?: string;
-    tags?: { key?: string; label?: string }[];
-    notifyCount?: number;
-    unreadCount?: number;
-    country?: string;
-    access?: string;
-    geographic?: {
-      province?: { label?: string; key?: string };
-      city?: { label?: string; key?: string };
-    };
-    address?: string;
-    phone?: string;
+    // name?: string;
+    // avatar?: string;
+    // userid?: string;
+    // email?: string;
+    // signature?: string;
+    // title?: string;
+    // group?: string;
+    // tags?: { key?: string; label?: string }[];
+    // notifyCount?: number;
+    // unreadCount?: number;
+    // country?: string;
+    // access?: string;
+    // geographic?: {
+    //   province?: { label?: string; key?: string };
+    //   city?: { label?: string; key?: string };
+    // };
+    // address?: string;
+    // phone?: string;
+
+    username?: string;
+    mobile?: string;
+    deal_pass?: string;
+    level_id?: string | number;
+    parent_id?: string | number;
+    credit?: number;
+    invite_code?: string;
+    balance?: string;
+    freeze_money?: string;
+    is_allow_trade?: number;
+    trade_order_count?: number;
+    today_trade_order_count?: number;
+    trade_money?: string;
+    today_trade_money?: string;
+    recharge_money?: string;
+    withdraw_money?: string;
+    is_agent?: number;
+    is_test?: number;
+    child_count?: number;
   };
 
   type LoginResult = {

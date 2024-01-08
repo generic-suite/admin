@@ -49,25 +49,25 @@ export async function getInitialState(): Promise<{
   };
 }
 
-// ProLayout 支持的api https://procomponents.ant.design/components/layout
+import defaultHeadImg from '@/assets/img/default_headimg.jpg';
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
-      src: initialState?.currentUser?.avatar,
+      src: { defaultHeadImg },
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      const token = localStorage.getItem('token');
+      if (!token) {
         history.push(loginPath);
       }
     },
@@ -133,4 +133,24 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   ...errorConfig,
+  // 接口前缀
+  prefix: '/api',
+  // 请求拦截器
+  requestInterceptors: [
+    (url, options) => {
+      console.log('requestInterceptors', url, options);
+      const token = localStorage.getItem('token');
+      if (token) {
+        // 在请求头设置用户token
+        options.headers = {
+          ...options.headers,
+          Authorization: `Bearer ${token}`,
+        };
+      }
+      return {
+        url,
+        options,
+      };
+    },
+  ],
 };
