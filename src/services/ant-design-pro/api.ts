@@ -60,6 +60,8 @@ export async function rule(
 
   return {
     data: res.data.list,
+    success: true,
+    total: res.data?.pagination?.total,
   };
 }
 
