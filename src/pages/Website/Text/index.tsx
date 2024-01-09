@@ -1,6 +1,7 @@
 import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
-import { PlusOutlined } from '@ant-design/icons';
+import { FileExcelFilled, PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
+import { useForm, Controller } from 'react-hook-form';
 import {
   FooterToolbar,
   ModalForm,
@@ -16,6 +17,7 @@ import { Button, Drawer, Input, message, Popconfirm } from 'antd';
 import React, { useRef, useState, nextTick } from 'react';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
+import ReactQuill from '@/components/ReactQuill'
 
 /**
  * 新建文本配置
@@ -119,6 +121,7 @@ const langMap = [
 
 const TableList: React.FC = () => {
 
+  const { control, handleSubmit, setValue, watch } = useForm();
   /**
    * @en-US Pop-up window of new window
    * @zh-CN 新建窗口的弹窗
@@ -180,6 +183,7 @@ const TableList: React.FC = () => {
           onClick={async () => {
             await handleModalOpen(true);
             addForm.current?.setFieldsValue(record);
+            setValue('content', record.content)
           }}
         >
           <FormattedMessage id="pages.searchTable.edit" />
@@ -232,16 +236,23 @@ const TableList: React.FC = () => {
           id: 'pages.website.basic.text.new',
         })}
         formRef={addForm}
-        width="400px"
+        width="800px"
         open={createModalOpen}
         onOpenChange={(open) => {
           // 表单关闭时重置表单
           if (!open) {
             addForm.current?.resetFields();
+            setValue('content', '')
           }
           handleModalOpen(open);
         }}
         onFinish={async (value) => {
+          const richTextContent = watch('content');
+          const defaultValue = {
+            ...value,
+            content: richTextContent
+          }
+          return
           const success = await handleAddText(value as API.RuleListItem);
           if (success) {
             handleModalOpen(false);
@@ -251,7 +262,6 @@ const TableList: React.FC = () => {
             }
           }
         }}
-
       >
         <ProFormSelect
           width='md'
@@ -275,7 +285,11 @@ const TableList: React.FC = () => {
             }
           })}
         ></ProFormSelect>
-        <ProFormTextArea label="内容" width="md" name="content" />
+        <Controller
+          name="content"
+          control={control}
+          render={({ field }) => <ReactQuill defaultValue={field.value} onChange={content => field.onChange(content)} />}
+        ></Controller>
       </ModalForm>
     </PageContainer >
   );
