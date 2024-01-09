@@ -29,6 +29,18 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/website',
+    name: 'website',
+    icon: 'smile',
+    routes: [
+      {
+        name: 'basic',
+        path: '/website/basic',
+        component: './Website/Basic',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',

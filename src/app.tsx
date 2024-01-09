@@ -93,11 +93,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ],
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
@@ -138,7 +138,6 @@ export const request = {
   // 请求拦截器
   requestInterceptors: [
     (url, options) => {
-      console.log('requestInterceptors', url, options);
       const token = localStorage.getItem('token');
       if (token) {
         // 在请求头设置用户token
@@ -152,5 +151,19 @@ export const request = {
         options,
       };
     },
+  ],
+  // 响应拦截器
+  responseInterceptors: [
+    async (res,) => {
+      // 如果接口成功,直接返回需要的业务数据
+      if (res.status >= 200 && res.status < 300) {
+        return res;
+      }
+      // 如果接口返回 404 ,表示需要重新登录
+      if (res.code === 401) {
+        history.push(loginPath);
+      }
+      return res;
+    }
   ],
 };
