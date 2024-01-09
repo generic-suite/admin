@@ -13,11 +13,12 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl } from '@umijs/max';
-import { Button, Drawer, Input, message, Popconfirm } from 'antd';
+import { Button, Drawer, Input, message, Popconfirm, Form, } from 'antd';
 import React, { useRef, useState, nextTick } from 'react';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import ReactQuill from '@/components/ReactQuill'
+
 
 /**
  * 新建文本配置
@@ -149,7 +150,7 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<API.RuleListItem>[] = [
     {
-      title: <FormattedMessage id="pages.searchTable.texttype" defaultMessage="文本类型" />,
+      title: <FormattedMessage id="pages.website.basic.text.texttype" defaultMessage="文本类型" />,
       dataIndex: 'config_type',
       hideInForm: true,
       valueEnum: textTypeMap.reduce((pre, item) => {
@@ -158,7 +159,7 @@ const TableList: React.FC = () => {
       }, {}),
     },
     {
-      title: <FormattedMessage id="pages.searchTable.languagetype" defaultMessage="语言类型" />,
+      title: <FormattedMessage id="pages.website.basic.text.languagetype" defaultMessage="语言类型" />,
       dataIndex: 'lang',
       hideInForm: true,
       valueEnum: langMap.reduce((pre, item) => {
@@ -252,7 +253,6 @@ const TableList: React.FC = () => {
             ...value,
             content: richTextContent
           }
-          return
           const success = await handleAddText(value as API.RuleListItem);
           if (success) {
             handleModalOpen(false);
@@ -285,11 +285,15 @@ const TableList: React.FC = () => {
             }
           })}
         ></ProFormSelect>
-        <Controller
-          name="content"
-          control={control}
-          render={({ field }) => <ReactQuill defaultValue={field.value} onChange={content => field.onChange(content)} />}
-        ></Controller>
+        <Form.Item label="内容" name="content">
+          <Controller
+            name="content"
+            label="内容"
+            control={control}
+            render={({ field }) => <ReactQuill defaultValue={field.value} onChange={content => field.onChange(content)} />}
+          ></Controller>
+        </Form.Item>
+
       </ModalForm>
     </PageContainer >
   );
