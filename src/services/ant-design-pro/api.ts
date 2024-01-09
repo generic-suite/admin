@@ -39,7 +39,7 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
-/** 获取规则列表 GET /api/rule */
+/** 获取文本列表  */
 export async function rule(
   params: {
     // query
@@ -50,13 +50,17 @@ export async function rule(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/rule', {
+  const res = await request<API.TextList>('/api/sys-config-text', {
     method: 'GET',
     params: {
       ...params,
     },
     ...(options || {}),
   });
+
+  return {
+    data: res.data.list,
+  };
 }
 
 /** 新建规则 PUT /api/rule */
@@ -80,5 +84,22 @@ export async function removeRule(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/rule', {
     method: 'DELETE',
     ...(options || {}),
+  });
+}
+
+/** 设置文本 POST /api/sys-config-text */
+export async function setTextConfig(options?: { [key: string]: any }) {
+  console.log('🚀  file: api.ts:92  setTextConfig  options:', options);
+  return request<API.RuleListItem>('/api/sys-config-text', {
+    method: 'POST',
+    data: options,
+    ...(options || {}),
+  });
+}
+
+// 删除文本
+export async function deleteTextConfig(id: number) {
+  return request<API.RuleListItem>(`/api/sys-config-text/${id}`, {
+    method: 'DELETE',
   });
 }

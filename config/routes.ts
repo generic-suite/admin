@@ -38,6 +38,12 @@ export default [
         path: '/website/basic',
         component: './Website/Basic',
       },
+      {
+        name: 'text',
+        icon: 'table',
+        path: '/website/text',
+        component: './Website/Text',
+      },
     ],
   },
   {

@@ -50,8 +50,9 @@ declare namespace API {
   };
 
   type PageParams = {
-    current?: number;
+    total?: number;
     pageSize?: number;
+    current?: number;
   };
 
   type RuleListItem = {
@@ -74,6 +75,16 @@ declare namespace API {
     /** 列表的内容总数 */
     total?: number;
     success?: boolean;
+  };
+
+  type TextList = {
+    code?: number;
+    data?: {
+      list: TextListItem[];
+      pagination: Partial<PageParams>;
+    };
+    success: boolean;
+    msg: string;
   };
 
   type FakeCaptcha = {

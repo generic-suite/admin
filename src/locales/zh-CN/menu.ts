@@ -51,4 +51,5 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   'menu.website': '网站管理',
   'menu.website.basic': '基本信息',
+  'menu.website.text': '文本配置',
 };

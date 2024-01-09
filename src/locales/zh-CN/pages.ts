@@ -62,4 +62,27 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  
+  'pages.searchTable.edit': '编辑',
+  'pages.searchTable.delete': '删除',
+
+  'pages.website.basic.text.texttype': '文本类型',
+  'pages.website.basic.text.texttype.alert': '弹窗', // 前端弹窗
+  'pages.website.basic.text.texttype.notification': '通知', // 通知
+  'pages.website.basic.text.texttype.qualification': '公司资质', // 公司资质
+  'pages.website.basic.text.texttype.aboutus': '关于我们', // 关于我们
+  'pages.website.basic.text.texttype.question': '任何疑问', // 任何疑问
+  'pages.website.basic.text.texttype.agent': '代理商说明', // 代理商说明
+  'pages.website.basic.text.texttype.usdt': 'USDT说明', // USDT说明
+  'pages.website.basic.text.texttype.terms': '使用条款/法规', // 使用条款/法规
+  'pages.website.basic.text.texttype.privacy': '注册条款/隐私', // 注册条款/隐私
+  'pages.website.basic.text.texttype.certificate': '证书', // 证书
+  'pages.website.basic.text.texttype.activity': '最新活动', // 最新活动
+
+  // 语言类型
+  'pages.website.basic.text.languagetype': '语言类型',
+  'pages.website.basic.text.languagetype.zh': '中文',
+  'pages.website.basic.text.languagetype.en': '英文',
+
+  'pages.website.basic.text.new': '文本配置', // 新建文本配置
 };
