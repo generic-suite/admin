@@ -47,6 +47,23 @@ export default [
     ],
   },
   {
+    path: '/product',
+    name: 'product',
+    icon: 'smile',
+    routes: [
+      {
+        name: 'list',
+        path: '/product/list',
+        component: './Product/List',
+      },
+      {
+        name: 'approll',
+        path: '/product/approll',
+        component: './Product/Approll',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',

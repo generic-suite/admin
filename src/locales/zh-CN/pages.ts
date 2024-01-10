@@ -62,7 +62,7 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
-  
+
   'pages.searchTable.edit': '编辑',
   'pages.searchTable.delete': '删除',
 
@@ -85,4 +85,11 @@ export default {
   'pages.website.basic.text.languagetype.en': '英文',
 
   'pages.website.basic.text.new': '文本配置', // 新建文本配置
+
+  // 产品列表
+  'pages.product.productlist': '产品列表',
+  'pages.product.productlist.name': '产品名称',
+  'pages.product.productlist.img': '图片',
+  'pages.product.productlist.price': '价格',
+  'pages.product.productlist.manage': '产品管理',
 };

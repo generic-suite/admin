@@ -91,7 +91,6 @@ export async function removeRule(options?: { [key: string]: any }) {
 
 /** 设置文本 POST /api/sys-config-text */
 export async function setTextConfig(options?: { [key: string]: any }) {
-  console.log('🚀  file: api.ts:92  setTextConfig  options:', options);
   return request<API.RuleListItem>('/api/sys-config-text', {
     method: 'POST',
     data: options,
