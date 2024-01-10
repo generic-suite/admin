@@ -63,6 +63,19 @@ export default [
       },
     ],
   },
+  // 会员管理
+  {
+    path: '/member',
+    name: 'member',
+    icon: 'smile',
+    routes: [
+      {
+        name: 'memberlist',
+        path: '/member/list',
+        component: './Member/List',
+      },
+    ],
+  },
   {
     path: '/admin',
     name: 'admin',

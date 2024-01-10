@@ -55,4 +55,6 @@ export default {
   'menu.product': '产品管理',
   'menu.product.list': '产品列表',
   'menu.product.approll': 'app滚动',
+  'menu.member': '会员管理',
+  'menu.member.memberlist': '会员列表',
 };

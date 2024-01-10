@@ -99,4 +99,17 @@ export default {
   'pages.product.approll.img': '图片',
   'pages.product.approll.desc': '描述',
   'pages.product.approll.manage': 'APP滚动管理',
+
+  // 会员管理
+  'pages.member': '会员管理',
+  // 会员列表
+  'pages.member.memberlist': '会员列表',
+  'pages.member.memberlist.name': '会员名称',
+  'pages.member.memberlist.mobile': '手机号',
+  'pages.member.memberlist.status': '状态',
+  'pages.member.memberlist.createTime': '注册时间',
+  'pages.member.memberlist.basicinfo': '基础信息',
+  'pages.member.memberlist.accountinfo': '账号信息',
+  'pages.member.memberlist.walletinfo': '钱包信息',
+  'pages.member.memberlist.invitecode': '邀请码',
 };
