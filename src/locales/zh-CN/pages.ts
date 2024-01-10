@@ -92,4 +92,11 @@ export default {
   'pages.product.productlist.img': '图片',
   'pages.product.productlist.price': '价格',
   'pages.product.productlist.manage': '产品管理',
+
+  // APP滚动
+  'pages.product.approll': 'APP滚动',
+  'pages.product.approll.name': '名称',
+  'pages.product.approll.img': '图片',
+  'pages.product.approll.desc': '描述',
+  'pages.product.approll.manage': 'APP滚动管理',
 };
