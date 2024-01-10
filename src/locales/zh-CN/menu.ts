@@ -57,4 +57,5 @@ export default {
   'menu.product.approll': 'app滚动',
   'menu.member': '会员管理',
   'menu.member.memberlist': '会员列表',
+  'menu.member.vipLevelList': '会员等级列表',
 };

@@ -74,6 +74,11 @@ export default [
         path: '/member/list',
         component: './Member/List',
       },
+      {
+        name: 'vipLevelList',
+        path: '/member/vipLevelList',
+        component: './Member/VipLevelList',
+      }
     ],
   },
   {
