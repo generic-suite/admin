@@ -31,7 +31,7 @@ export default [
   {
     path: '/website',
     name: 'website',
-    icon: 'smile',
+    icon: 'WebSite|svg',
     routes: [
       {
         name: 'basic',
@@ -49,7 +49,7 @@ export default [
   {
     path: '/product',
     name: 'product',
-    icon: 'smile',
+    icon: 'Product|svg',
     routes: [
       {
         name: 'list',
@@ -67,7 +67,7 @@ export default [
   {
     path: '/member',
     name: 'member',
-    icon: 'smile',
+    icon: 'Member|svg',
     routes: [
       {
         name: 'memberlist',
@@ -91,7 +91,7 @@ export default [
   {
     path: '/finance',
     name: 'finance',
-    icon: 'smile',
+    icon: 'Finance|svg',
     routes: [
       {
         // 提现订单
@@ -111,7 +111,7 @@ export default [
   {
     path: '/order',
     name: 'order',
-    icon: 'smile',
+    icon: 'Order|svg',
     routes: [
       {
         // 订单列表

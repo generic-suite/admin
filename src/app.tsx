@@ -49,9 +49,26 @@ export async function getInitialState(): Promise<{
   };
 }
 
+// 路由图标
+import { IconMap } from '@/components/MenuIcon';
+import Icon from '@ant-design/icons';
+
+
 import defaultHeadImg from '@/assets/img/default_headimg.jpg';
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
+    menuDataRender: (menuData) => {
+      return menuData.map((item) => {
+        return {
+          ...item,
+          icon: typeof item.icon === 'string' && item.icon.indexOf('|svg') > -1 ? (
+            <Icon component={IconMap[item.icon.replace('|svg', '')]} style={{ fontSize: 14 }} />
+          ) : (
+            item.icon
+          ),
+        }
+      })
+    },
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: { defaultHeadImg },
@@ -172,3 +189,4 @@ export const request = {
     }
   ],
 };
+
