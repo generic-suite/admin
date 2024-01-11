@@ -28,6 +28,7 @@ export default [
     icon: 'smile',
     component: './Welcome',
   },
+  // 网站管理
   {
     path: '/website',
     name: 'website',
@@ -44,8 +45,14 @@ export default [
         path: '/website/text',
         component: './Website/Text',
       },
+      {
+        name: 'customer',
+        path: '/website/customer',
+        component: './Website/Customer',
+      },
     ],
   },
+  // 产品管理
   {
     path: '/product',
     name: 'product',

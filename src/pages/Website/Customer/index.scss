@@ -1,0 +1,20 @@
+.form-item {
+  .form-item-label {
+    color: #999;
+  }
+  .form-item-value {
+    flex: 1;
+  }
+}
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+.form-invitecode{
+  cursor: pointer;
+}
+.btn-block{
+  display: flex;
+  gap: 4px;
+}

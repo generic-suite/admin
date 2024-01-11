@@ -52,6 +52,7 @@ export default {
   'menu.website': '网站管理',
   'menu.website.basic': '基本信息',
   'menu.website.text': '文本配置',
+  'menu.website.customer': '客服管理',
   'menu.product': '产品管理',
   'menu.product.list': '产品列表',
   'menu.product.approll': 'app滚动',
