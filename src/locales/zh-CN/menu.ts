@@ -62,4 +62,6 @@ export default {
   'menu.finance': '财务管理',
   'menu.finance.withdrawalOrder': '提现订单',
   'menu.finance.transactionFlow': '交易流水',
+  'menu.order': '订单管理',
+  'menu.order.orderList': '订单列表',
 };

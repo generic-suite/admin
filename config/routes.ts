@@ -107,6 +107,20 @@ export default [
       },
     ],
   },
+  // 订单管理
+  {
+    path: '/order',
+    name: 'order',
+    icon: 'smile',
+    routes: [
+      {
+        // 订单列表
+        name: 'orderList',
+        path: '/order/orderList',
+        component: './Order/OrderList',
+      },
+    ],
+  },
   {
     path: '/admin',
     name: 'admin',
