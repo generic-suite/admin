@@ -71,6 +71,10 @@ const TableList: React.FC = () => {
       hideInForm: true,
     },
     {
+      title: '会员等级',
+      dataIndex: 'level',
+    },
+    {
       title: '图片',
       dataIndex: 'img',
       render: (text, record) => {
@@ -149,8 +153,6 @@ const TableList: React.FC = () => {
               addForm.current?.setFieldsValue(record); // 设置表单的值
             }}
           >编辑</Button>
-
-
           <Popconfirm
             key="deletePopconfirm"
             title="系统提示"
@@ -294,6 +296,10 @@ const TableList: React.FC = () => {
           </Col>
 
           <Col span={12}>
+            {/* 会员等级 */}
+            <Form.Item label="会员等级" name="level" >
+              <InputNumber disabled={currentRow ? true : false} defaultValue={1} style={{ width: '100%' }} />
+            </Form.Item>
             {/* 描述 */}
             <ProFormText
               name="description"
