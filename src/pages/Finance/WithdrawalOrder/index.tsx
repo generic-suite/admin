@@ -23,21 +23,6 @@ import './index.scss'
 import dayjs from 'dayjs'
 import { statusMap } from './config'
 
-export const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-};
-
-
-
-
 
 const TableList: React.FC = () => {
 
@@ -49,20 +34,8 @@ const TableList: React.FC = () => {
   // 当前操作的列
   const [currentRow, setCurrentRow] = useState<API.UserItem>();
 
-  const [imageUrl, setImageUrl] = useState<string>(); // 上传图片的地址
-  const [loading, setLoading] = useState(false); // 上传图片的loading
   const actionRef = useRef<ActionType>(); // 表格的action
-  const addForm = useRef<FormInstance>(); // 添加会员的表单
-  // 审核的表单
-  const [auditForm] = Form.useForm();
-
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
-
+  const auditForm = useRef<FormInstance>(); // 审核的表单
 
   const intl = useIntl(); // 国际化配置
 
@@ -134,7 +107,6 @@ const TableList: React.FC = () => {
       valueType: 'dateTime',
       hideInSearch: true,
     },
-
     // 操作列
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
@@ -159,18 +131,7 @@ const TableList: React.FC = () => {
     }
   ];
 
-  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
+  
   return (
     <PageContainer>
       <ProTable<API.UserItem, API.PageParams>
@@ -182,14 +143,16 @@ const TableList: React.FC = () => {
 
       {/* 审核弹窗 */}
       <ModalForm
-        open={createModalOpen}
+        width={800}
         title="审核"
         formRef={auditForm}
-        onVisibleChange={async (bool) => {
-          handleModalOpen(bool);
-          if (!bool) {
+        open={createModalOpen}
+        onOpenChange={(open) => {
+          // 表单关闭时重置表单
+          if (!open) {
             auditForm.current?.resetFields();
           }
+          handleModalOpen(open);
         }}
         onFinish={async (values) => {
           const res = await update(values);
@@ -200,13 +163,11 @@ const TableList: React.FC = () => {
           }
         }}
       >
-        <Form.Item
+        <ProFormText
           name="id"
           label="ID"
           hidden
-        >
-          <Input />
-        </Form.Item>
+        />
         <Form.Item
           name="status"
           label="状态"

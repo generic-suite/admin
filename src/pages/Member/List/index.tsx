@@ -343,7 +343,6 @@ const TableList: React.FC = () => {
             取消
           </Button>,
         ]}
-
       >
         <InputNumber className='flex' min={0} value={addSubtractNum} onChange={value => setAddSubtractNum(value as number)} />
       </Modal>
@@ -361,7 +360,6 @@ const TableList: React.FC = () => {
           handleEditBankModalOpen(open);
         }}
         onFinish={async (value) => {
-          console.log(value, currentRow.userId)
           const res = await setBankInfo(currentRow.userId, value)
           if (res.success) {
             handleEditBankModalOpen(false)
