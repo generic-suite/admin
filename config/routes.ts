@@ -78,6 +78,12 @@ export default [
         name: 'vipLevelList',
         path: '/member/vipLevelList',
         component: './Member/VipLevelList',
+      },
+      // 银行卡列表
+      {
+        name: 'bankCardList',
+        path: '/member/bankCardList',
+        component: './Member/BankCardList',
       }
     ],
   },

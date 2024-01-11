@@ -58,4 +58,5 @@ export default {
   'menu.member': '会员管理',
   'menu.member.memberlist': '会员列表',
   'menu.member.vipLevelList': '会员等级列表',
+  'menu.member.bankCardList': '银行卡列表',
 };
