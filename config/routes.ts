@@ -99,6 +99,12 @@ export default [
         path: '/finance/withdrawalOrder',
         component: './Finance/WithdrawalOrder',
       },
+      // 交易流水
+      {
+        name: 'transactionFlow',
+        path: '/finance/transactionFlow',
+        component: './Finance/TransactionFlow',
+      },
     ],
   },
   {

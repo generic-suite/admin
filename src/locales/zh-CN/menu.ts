@@ -61,4 +61,5 @@ export default {
   'menu.member.bankCardList': '银行卡列表',
   'menu.finance': '财务管理',
   'menu.finance.withdrawalOrder': '提现订单',
+  'menu.finance.transactionFlow': '交易流水',
 };
