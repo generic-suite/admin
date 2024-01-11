@@ -59,4 +59,6 @@ export default {
   'menu.member.memberlist': '会员列表',
   'menu.member.vipLevelList': '会员等级列表',
   'menu.member.bankCardList': '银行卡列表',
+  'menu.finance': '财务管理',
+  'menu.finance.withdrawalOrder': '提现订单',
 };

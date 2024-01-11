@@ -84,7 +84,21 @@ export default [
         name: 'bankCardList',
         path: '/member/bankCardList',
         component: './Member/BankCardList',
-      }
+      },
+    ],
+  },
+  // 财务管理
+  {
+    path: '/finance',
+    name: 'finance',
+    icon: 'smile',
+    routes: [
+      {
+        // 提现订单
+        name: 'withdrawalOrder',
+        path: '/finance/withdrawalOrder',
+        component: './Finance/WithdrawalOrder',
+      },
     ],
   },
   {
