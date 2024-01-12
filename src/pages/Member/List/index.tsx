@@ -1,5 +1,5 @@
 import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
-import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo } from './api';
+import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel } from './api';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons'; // 添加图标
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -17,6 +17,7 @@ import { Button, Drawer, Input, message, Popconfirm, Form, Upload, InputNumber, 
 import React, { useRef, useState, nextTick } from 'react';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
+import VipLevelModal from './components/VipLevel';
 import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import './index.scss'
@@ -38,6 +39,8 @@ const TableList: React.FC = () => {
   const [addSubtractNum, setAddSubtractNum] = useState<number>(0);
   // 编辑银行信息的弹窗
   const [editBankModalOpen, handleEditBankModalOpen] = useState<boolean>(false);
+  // 编辑用户会员等级的弹窗
+  const [editVipLevelModalOpen, handleEditVipLevelModalOpen] = useState<boolean>(false);
   const showModal = () => {
     handleAddSubtractModalOpen(true);
   };
@@ -62,6 +65,7 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>(); // 表格的action
   const addForm = useRef<FormInstance>(); // 添加会员的表单
   const editCardForm = useRef<FormInstance>(); // 编辑银行信息的表单
+  const userVipLevelForm = useRef<FormInstance>(); // 编辑用户会员等级的表单
 
   /**
    * @en-US International configuration
@@ -144,11 +148,11 @@ const TableList: React.FC = () => {
           </div>
           <div className='form-item flex'>
             <div className='form-item-label'>累计佣金：</div>
-            <div className='form-item-value'>{`暂无接口`}</div>
+            <div className='form-item-value'>{record.commission_total}</div>
           </div>
           <div className='form-item flex'>
             <div className='form-item-label'>今日佣金：</div>
-            <div className='form-item-value'>{`暂无接口`}</div>
+            <div className='form-item-value'>{record.commission_today}</div>
           </div>
         </div>
       ]
@@ -160,7 +164,7 @@ const TableList: React.FC = () => {
       hideInForm: true,
       render: (_, record) => [
         <div className='form-taskinfo' key="taskinfo">
-          暂无接口
+          {record.today_trade_order_count} - {record.order_count}
         </div>
       ]
     },
@@ -223,6 +227,11 @@ const TableList: React.FC = () => {
             editCardForm.current?.setFieldsValue(res.data)
             setCurrentRow(record)
           }}>银行信息</Button>
+
+          <Button size="small" type="primary" onClick={async () => {
+            await setCurrentRow(record)
+            await handleEditVipLevelModalOpen(true)
+          }}>vip等级</Button>
         </div>
 
       ],
@@ -392,7 +401,36 @@ const TableList: React.FC = () => {
         />
       </ModalForm>
 
+      {/* 编辑用户vip等级的弹窗 */}
+      <VipLevelModal
+        open={editVipLevelModalOpen}
+        levelId={currentRow?.level_id}
+        formRef={userVipLevelForm}
+        onCancel={(open) => {
+          if (!open) {
+            // 清空表单
+            userVipLevelForm.current?.resetFields();
+          }
+          handleEditVipLevelModalOpen(open)
+        }}
+        onSubmit={async (value) => {
+          const params = {
+            userId: currentRow?.userId,
+            ...value
+          }
+          const res = await setVipLevel(params)
+          if (res.success) {
+            userVipLevelForm.current?.resetFields();
+            handleEditVipLevelModalOpen(false)
+            // 刷新表格
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+      >
 
+      </VipLevelModal>
     </PageContainer >
   );
 };

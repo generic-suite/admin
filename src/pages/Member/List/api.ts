@@ -60,3 +60,17 @@ export async function updateData(params: API.ListItem) {
     data: params,
   });
 }
+
+// 查询用户的vip等级
+export async function getVipLevel(userId: number) {
+  return request<API.Result>(`/api/mid-user/get-vip-level/${userId}`, {
+    method: 'GET',
+  });
+}
+// 设置用户的vip等级
+export async function setVipLevel(data: API.VipLevel) {
+  return request<API.Result>(`/api/mid-user/set-vip`, {
+    method: 'POST',
+    data
+  });
+}
