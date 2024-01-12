@@ -286,22 +286,9 @@ const TableList: React.FC = () => {
                 {item.buttonText}
               </Button>
             })}
-            {/* <Button
-              size="small"
-              type="primary"
-              style={{ background: cyan.primary }}
-              onClick={() => {
-                setCurrentRow(record)
-                handleAccountDisableModalOpen(true)
-              }}
-            >
-              {userRowBtnTextMap[record.status]}
-            </Button> */}
-            {/* <Button
-              size="small"
-              type="primary"
-              style={{ background: geekblue.primary }}
-            >交易禁用</Button> */}
+
+          </div>
+          <div className='btn-flex' key="btn-line3">
             <Button
               size="small"
               type="primary"
@@ -313,7 +300,7 @@ const TableList: React.FC = () => {
               style={{ background: red.primary }}
             >提现密码</Button>
           </div>
-        </div >
+        </div>
 
       ],
     }
