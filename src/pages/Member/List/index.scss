@@ -11,10 +11,19 @@
   gap: 0px;
 }
 
-.form-invitecode{
+.form-invitecode {
   cursor: pointer;
 }
-.btn-block{
+.btn-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.btn-flex {
   display: flex;
   gap: 4px;
+}
+
+.btn-disabled {
+  $primary-color: #722ed1;
 }

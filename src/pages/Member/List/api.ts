@@ -71,6 +71,14 @@ export async function getVipLevel(userId: number) {
 export async function setVipLevel(data: API.VipLevel) {
   return request<API.Result>(`/api/mid-user/set-vip`, {
     method: 'POST',
-    data
+    data,
+  });
+}
+
+// 修改用户基础信息
+export async function setBaseInfo(data: API.BaseInfo) {
+  return request<API.Result>(`/api/mid-user/${data.userId}`, {
+    method: 'PATCH',
+    data,
   });
 }

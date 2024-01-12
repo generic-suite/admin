@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ant-design/colors':
+    specifier: ^7.0.2
+    version: registry.npmmirror.com/@ant-design/colors@7.0.2
   '@ant-design/icons':
     specifier: ^4.8.0
     version: 4.8.0(react-dom@18.2.0)(react@18.2.0)
@@ -233,16 +236,6 @@ packages:
     resolution: {integrity: sha512-0vr5GCwM7xlAl6NxG1lPbABO+SYioNJL3HVy2FA8wTlsIMoZvQwcwsxTw6eLQCiN9V2UQ8kBtfz8DW8utVVE5w==}
     dev: true
 
-  /@ant-design/colors@6.0.0:
-    resolution: {integrity: sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ==}
-    dependencies:
-      '@ctrl/tinycolor': 3.6.0
-
-  /@ant-design/colors@7.0.0:
-    resolution: {integrity: sha512-iVm/9PfGCbC0dSMBrz7oiEXZaaGH7ceU40OJEfKmyuzR9R5CRimJYPlRiFtMQGQcbNMea/ePcoIebi4ASGYXtg==}
-    dependencies:
-      '@ctrl/tinycolor': 3.6.0
-
   /@ant-design/cssinjs@1.5.6(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1S7LUPC9BMyQ/CUYgzfePJJwEfsbVHJe3Tpd9zhujTxRM/6LYpN9N4FTaPHVqpnPazm0S2vG0WBkh2T5Erwuug==}
     peerDependencies:
@@ -269,7 +262,7 @@ packages:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
     dependencies:
-      '@ant-design/colors': 6.0.0
+      '@ant-design/colors': registry.npmmirror.com/@ant-design/colors@6.0.0
       '@ant-design/icons-svg': 4.2.1
       '@babel/runtime': 7.20.13
       classnames: 2.3.2
@@ -284,7 +277,7 @@ packages:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
     dependencies:
-      '@ant-design/colors': 7.0.0
+      '@ant-design/colors': registry.npmmirror.com/@ant-design/colors@7.0.2
       '@ant-design/icons-svg': 4.2.1
       '@babel/runtime': 7.20.13
       classnames: 2.3.2
@@ -703,7 +696,7 @@ packages:
     dependencies:
       '@ant-design/cssinjs': 1.5.6(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.20.13
-      '@ctrl/tinycolor': 3.6.0
+      '@ctrl/tinycolor': registry.npmmirror.com/@ctrl/tinycolor@3.6.0
       antd: 4.24.8(react-dom@18.2.0)(react@18.2.0)
       rc-util: 5.27.2(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -720,7 +713,7 @@ packages:
     dependencies:
       '@ant-design/cssinjs': 1.5.6(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.20.13
-      '@ctrl/tinycolor': 3.6.0
+      '@ctrl/tinycolor': registry.npmmirror.com/@ctrl/tinycolor@3.6.0
       antd: 5.2.2(moment@2.29.4)(react-dom@18.2.0)(react@18.2.0)
       rc-util: 5.27.2(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -5150,11 +5143,11 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@ant-design/colors': 6.0.0
+      '@ant-design/colors': registry.npmmirror.com/@ant-design/colors@6.0.0
       '@ant-design/icons': 4.8.0(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/react-slick': 0.29.2(react@18.2.0)
       '@babel/runtime': 7.20.13
-      '@ctrl/tinycolor': 3.6.0
+      '@ctrl/tinycolor': registry.npmmirror.com/@ctrl/tinycolor@3.6.0
       classnames: 2.3.2
       copy-to-clipboard: 3.3.3
       lodash: registry.npmmirror.com/lodash@4.17.21
@@ -5203,7 +5196,7 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@ant-design/colors': 7.0.0
+      '@ant-design/colors': registry.npmmirror.com/@ant-design/colors@7.0.2
       '@ant-design/cssinjs': 1.5.6(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/icons': 5.0.1(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/react-slick': 1.0.0(react@18.2.0)
@@ -15441,6 +15434,20 @@ packages:
       '@jridgewell/trace-mapping': registry.npmmirror.com/@jridgewell/trace-mapping@0.3.20
     dev: true
 
+  registry.npmmirror.com/@ant-design/colors@6.0.0:
+    resolution: {integrity: sha512-qAZRvPzfdWHtfameEGP2Qvuf838NhergR35o+EuVyB5XvSA98xod5r4utvi4TJ3ywmevm290g9nsCG5MryrdWQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@ant-design/colors/-/colors-6.0.0.tgz}
+    name: '@ant-design/colors'
+    version: 6.0.0
+    dependencies:
+      '@ctrl/tinycolor': registry.npmmirror.com/@ctrl/tinycolor@3.6.0
+
+  registry.npmmirror.com/@ant-design/colors@7.0.2:
+    resolution: {integrity: sha512-7KJkhTiPiLHSu+LmMJnehfJ6242OCxSlR3xHVBecYxnMW8MS/878NXct1GqYARyL59fyeFdKRxXTfvR9SnDgJg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@ant-design/colors/-/colors-7.0.2.tgz}
+    name: '@ant-design/colors'
+    version: 7.0.2
+    dependencies:
+      '@ctrl/tinycolor': registry.npmmirror.com/@ctrl/tinycolor@3.6.1
+
   registry.npmmirror.com/@antfu/install-pkg@0.1.1:
     resolution: {integrity: sha512-LyB/8+bSfa0DFGC06zpCEfs89/XoWZwws5ygEa5D+Xsm3OfI+aXQ86VgVG7Acyef+rSZ5HE7J8rrxzrQeM3PjQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@antfu/install-pkg/-/install-pkg-0.1.1.tgz}
     name: '@antfu/install-pkg'
@@ -16080,6 +16087,18 @@ packages:
       postcss: registry.npmmirror.com/postcss@8.4.31
       postcss-selector-parser: registry.npmmirror.com/postcss-selector-parser@6.0.11
     dev: true
+
+  registry.npmmirror.com/@ctrl/tinycolor@3.6.0:
+    resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.6.0.tgz}
+    name: '@ctrl/tinycolor'
+    version: 3.6.0
+    engines: {node: '>=10'}
+
+  registry.npmmirror.com/@ctrl/tinycolor@3.6.1:
+    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.6.1.tgz}
+    name: '@ctrl/tinycolor'
+    version: 3.6.1
+    engines: {node: '>=10'}
 
   registry.npmmirror.com/@emotion/is-prop-valid@1.2.1:
     resolution: {integrity: sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@emotion/is-prop-valid/-/is-prop-valid-1.2.1.tgz}

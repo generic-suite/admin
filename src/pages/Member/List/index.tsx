@@ -1,5 +1,5 @@
 import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
-import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel } from './api';
+import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel, setBaseInfo } from './api';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons'; // 添加图标
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -22,8 +22,8 @@ import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import './index.scss'
 import dayjs from 'dayjs'
-
-
+import { red, volcano, gold, yellow, lime, green, cyan, blue, geekblue, purple, magenta, grey } from '@ant-design/colors';
+import { userStatusMap, userRowBtnTextMap, isAllowTrade } from './config'
 const TableList: React.FC = () => {
 
   /**
@@ -35,22 +35,24 @@ const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.UserItem>();
   // 加扣款的弹窗
   const [AddSubtractModalOpen, handleAddSubtractModalOpen] = useState<boolean>(false);
-  // 加扣款的金额
-  const [addSubtractNum, setAddSubtractNum] = useState<number>(0);
   // 编辑银行信息的弹窗
   const [editBankModalOpen, handleEditBankModalOpen] = useState<boolean>(false);
   // 编辑用户会员等级的弹窗
   const [editVipLevelModalOpen, handleEditVipLevelModalOpen] = useState<boolean>(false);
+  // 账号禁用的弹窗
+  const [accountDisableModalOpen, handleAccountDisableModalOpen] = useState<boolean>(false);
+  // 快捷操作的数据
+  const [shortcutData, setShortcutData] = useState<any[]>([])
+  // 加扣款的金额
+  const [addSubtractNum, setAddSubtractNum] = useState<number>(0);
   const showModal = () => {
     handleAddSubtractModalOpen(true);
   };
-
   const handleCancel = () => {
     // 重置金额
     setAddSubtractNum(0)
     handleAddSubtractModalOpen(false);
   };
-
   const changeBalanceSubmit = async (params) => {
     const { success } = await addMoney(params);
     if (success) {
@@ -61,17 +63,54 @@ const TableList: React.FC = () => {
       }
     }
   }
-
   const actionRef = useRef<ActionType>(); // 表格的action
   const addForm = useRef<FormInstance>(); // 添加会员的表单
   const editCardForm = useRef<FormInstance>(); // 编辑银行信息的表单
   const userVipLevelForm = useRef<FormInstance>(); // 编辑用户会员等级的表单
+  // 快捷操作的数据
 
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
   const intl = useIntl();
+
+  const disabledUser = (record) => {
+    return [
+      {
+        key: '1',
+        buttonText: userRowBtnTextMap[record.status], // 按钮文字
+        buttonStyle: { background: cyan.primary }, // 按钮样式
+        buttonClick: () => { // 按钮点击事件
+          setShortcutData({
+            modalText: `是否要设置用户状态：${userRowBtnTextMap[record.status]}`,
+            userId: record.userId,
+            value: record.status === 1 ? 2 : 1,
+            actionField: 'status',
+            apiUrl: setBaseInfo,
+          })
+          setCurrentRow(record)
+          handleAccountDisableModalOpen(true)
+        },
+      },
+      {
+        key: '2',
+        buttonText: isAllowTrade[record.is_allow_trade === 1 ? 2 : 1], // 按钮文字
+        buttonStyle: { background: geekblue.primary }, // 按钮样式
+        buttonClick: () => { // 按钮点击事件
+          setShortcutData({
+            modalText: `是否要修改交易状态为：${isAllowTrade[record.status === 1 ? 2 : 1]}`,
+            userId: record.userId,
+            value: record.is_allow_trade === 1 ? 2 : 1,
+            actionField: 'is_allow_trade',
+            apiUrl: setBaseInfo,
+          })
+          setCurrentRow(record)
+          handleAccountDisableModalOpen(true)
+        },
+      }
+    ]
+  }
 
 
   const columns: ProColumns<API.RuleListItem>[] = [
@@ -208,31 +247,73 @@ const TableList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <div className='btn-block' key="btn-line1">
-          <Button
-            size="small"
-            type="primary"
-            onClick={async () => {
-              await handleModalOpen(true);
-              addForm.current?.setFieldsValue(record);
-            }}
-          >基本资料</Button>
-          <Button size="small" type="primary" onClick={() => {
-            showModal()
-            setCurrentRow(record)
-          }}>加扣款</Button>
-          <Button size="small" type="primary" onClick={async () => {
-            // 获取银行信息
-            const res = await getBankInfo(record.userId)
-            await handleEditBankModalOpen(true)
-            editCardForm.current?.setFieldsValue(res.data)
-            setCurrentRow(record)
-          }}>银行信息</Button>
+          <div className='btn-flex' >
+            <Button
+              size="small"
+              type="primary"
+              onClick={async () => {
+                await handleModalOpen(true);
+                addForm.current?.setFieldsValue(record);
+              }}
+            >基本资料</Button>
+            <Button size="small" type="primary" onClick={() => {
+              showModal()
+              setCurrentRow(record)
+            }}>加扣款</Button>
+            <Button size="small" type="primary" onClick={async () => {
+              // 获取银行信息
+              const res = await getBankInfo(record.userId)
+              await handleEditBankModalOpen(true)
+              editCardForm.current?.setFieldsValue(res.data)
+              setCurrentRow(record)
+            }}>银行信息</Button>
 
-          <Button size="small" type="primary" onClick={async () => {
-            await setCurrentRow(record)
-            await handleEditVipLevelModalOpen(true)
-          }}>vip等级</Button>
-        </div>
+            <Button size="small" type="primary" onClick={async () => {
+              await setCurrentRow(record)
+              await handleEditVipLevelModalOpen(true)
+            }}>vip等级</Button>
+          </div>
+          <div className='btn-flex' key="btn-line2">
+            {/* 循环disabledUser数组 */}
+            {disabledUser(record).map((item, index) => {
+              return <Button
+                key={index}
+                size="small"
+                type="primary"
+                style={item.buttonStyle}
+                onClick={item.buttonClick}
+              >
+                {item.buttonText}
+              </Button>
+            })}
+            {/* <Button
+              size="small"
+              type="primary"
+              style={{ background: cyan.primary }}
+              onClick={() => {
+                setCurrentRow(record)
+                handleAccountDisableModalOpen(true)
+              }}
+            >
+              {userRowBtnTextMap[record.status]}
+            </Button> */}
+            {/* <Button
+              size="small"
+              type="primary"
+              style={{ background: geekblue.primary }}
+            >交易禁用</Button> */}
+            <Button
+              size="small"
+              type="primary"
+              style={{ background: volcano.primary }}
+            >登录密码</Button>
+            <Button
+              size="small"
+              type="primary"
+              style={{ background: red.primary }}
+            >提现密码</Button>
+          </div>
+        </div >
 
       ],
     }
@@ -431,6 +512,48 @@ const TableList: React.FC = () => {
       >
 
       </VipLevelModal>
+      {/* <Modal
+        width={400}
+        open={accountDisableModalOpen}
+        title={`是否要设置用户状态：${userRowBtnTextMap[currentRow?.status]}`}
+        onOk={async () => {
+          const params = {
+            userId: currentRow?.userId,
+            status: currentRow?.status === 1 ? 2 : 1
+          }
+          const res = await setBaseInfo(params)
+          if (res.success) {
+            message.success('设置成功')
+          }
+          handleAccountDisableModalOpen(false);
+          actionRef.current?.reload();
+        }}
+        onCancel={() => {
+          handleAccountDisableModalOpen(false);
+        }}
+      >
+      </Modal> */}
+      <Modal
+        width={400}
+        open={accountDisableModalOpen}
+        title={shortcutData.modalText}
+        onOk={async () => {
+          const params = {
+            userId: currentRow?.userId,
+            [shortcutData.actionField]: shortcutData.value
+          }
+          const res = await shortcutData.apiUrl(params)
+          if (res.success) {
+            message.success('设置成功')
+          }
+          handleAccountDisableModalOpen(false);
+          actionRef.current?.reload();
+        }}
+        onCancel={() => {
+          handleAccountDisableModalOpen(false);
+        }}
+      >
+      </Modal>
     </PageContainer >
   );
 };
