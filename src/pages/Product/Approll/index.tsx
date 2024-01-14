@@ -113,7 +113,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInForm: true,
       render: (_, record) => [
-        <img src={record.img} style={{ width: '100px' }} key='img' />
+        <img src={REACT_APP_FILE_URL + record.img} style={{ width: '100px' }} key='img' />
       ]
     },
     {
@@ -137,7 +137,7 @@ const TableList: React.FC = () => {
           onClick={async () => {
             await handleModalOpen(true);
             addForm.current?.setFieldsValue(record);
-            setImageUrl(record.img)
+            setImageUrl(REACT_APP_FILE_URL + record.img)
             setIsUpdate(true) // 重置为编辑
           }}
         >
@@ -254,7 +254,7 @@ const TableList: React.FC = () => {
                 const res = await fetchUpload.json()
                 console.log(res)
                 if (res.data.code === 200) {
-                  setImageUrl(res.data.data.url)
+                  setImageUrl(REACT_APP_FILE_URL + res.data.data.url)
                 }
                 addForm.current?.setFieldsValue({ img: res.data.data.url });
                 hide();

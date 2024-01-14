@@ -78,7 +78,7 @@ const TableList: React.FC = () => {
       title: '图片',
       dataIndex: 'img',
       render: (text, record) => {
-        return <img src={record.img} alt="" style={{ width: '100px' }} />
+        return <img src={REACT_APP_FILE_URL + record.img} alt="" style={{ width: '100px' }} />
       }
     },
     {
@@ -149,7 +149,7 @@ const TableList: React.FC = () => {
             onClick={async () => {
               await handleModalOpen(true);
               setCurrentRow(record); // 设置当前操作的列
-              setImageUrl(record.img) // 设置图片
+              setImageUrl(REACT_APP_FILE_URL + record.img) // 设置图片
               addForm.current?.setFieldsValue(record); // 设置表单的值
             }}
           >编辑</Button>
@@ -277,7 +277,7 @@ const TableList: React.FC = () => {
                     const res = await fetchUpload.json()
                     console.log(res)
                     if (res.data.code === 200) {
-                      setImageUrl(res.data.data.url)
+                      setImageUrl(REACT_APP_FILE_URL + res.data.data.url)
                     }
                     addForm.current?.setFieldsValue({ img: res.data.data.url });
                     hide();

@@ -160,6 +160,8 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const addForm = useRef<FormInstance>();
 
+  const fileBaseUrl = REACT_APP_FILE_URL;
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -180,7 +182,7 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInForm: true,
       render: (_, record) => [
-        <img src={record.good_img} style={{ width: '100px' }} key='img' />
+        <img src={fileBaseUrl + record.good_img} style={{ width: '100px' }} key='img' />
       ]
     },
     {
@@ -204,7 +206,7 @@ const TableList: React.FC = () => {
           onClick={async () => {
             await handleModalOpen(true);
             addForm.current?.setFieldsValue(record);
-            setImageUrl(record.good_img)
+            setImageUrl(fileBaseUrl + record.good_img)
             setIsUpdate(true) // 重置为编辑
           }}
         >
@@ -306,7 +308,7 @@ const TableList: React.FC = () => {
             className="avatar-uploader"
             showUploadList={false}
             beforeUpload={beforeUpload}
-            onChange={handleChange}
+            // onChange={handleChange}
             maxCount={1}
             customRequest={async (e) => {
               console.log(e)
@@ -321,7 +323,7 @@ const TableList: React.FC = () => {
                 const res = await fetchUpload.json()
                 console.log(res)
                 if (res.data.code === 200) {
-                  setImageUrl(res.data.data.url)
+                  setImageUrl(fileBaseUrl + res.data.data.url)
                 }
                 addForm.current?.setFieldsValue({ good_img: res.data.data.url });
                 hide();
