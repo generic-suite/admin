@@ -1,5 +1,5 @@
 import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
-import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel, setBaseInfo } from './api';
+import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel, setBaseInfo, changePassword } from './api';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons'; // 添加图标
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -45,6 +45,11 @@ const TableList: React.FC = () => {
   const [shortcutData, setShortcutData] = useState<any[]>([])
   // 加扣款的金额
   const [addSubtractNum, setAddSubtractNum] = useState<number>(0);
+
+  // 修改登录密码/提现密码的弹窗
+  const [editPasswordModalOpen, handleEditPasswordModalOpen] = useState<boolean>(false);
+  const editPasswordForm = useRef<FormInstance>(); // 编辑登录密码/提现密码的表单
+  const [editPasswordType, setEditPasswordType] = useState<Number>(1) // 编辑密码的类型 1:登录密码 2:提现密码
   const showModal = () => {
     handleAddSubtractModalOpen(true);
   };
@@ -293,11 +298,27 @@ const TableList: React.FC = () => {
               size="small"
               type="primary"
               style={{ background: volcano.primary }}
+              onClick={async () => {
+                await setCurrentRow(record)
+                await handleEditPasswordModalOpen(true)
+                await setEditPasswordType(1)
+                await editPasswordForm.current?.setFieldsValue({
+                  userId: record.userId
+                })
+              }}
             >登录密码</Button>
             <Button
               size="small"
               type="primary"
               style={{ background: red.primary }}
+              onClick={async () => {
+                await setCurrentRow(record)
+                await handleEditPasswordModalOpen(true)
+                await setEditPasswordType(2)
+                await editPasswordForm.current?.setFieldsValue({
+                  userId: record.userId
+                })
+              }}
             >提现密码</Button>
           </div>
         </div>
@@ -499,27 +520,49 @@ const TableList: React.FC = () => {
       >
 
       </VipLevelModal>
-      {/* <Modal
+      {/* 修改登录密码/提现密码的弹窗 */}
+      <ModalForm
+        title={setEditPasswordType === 1 ? '修改登录密码' : '修改提现密码'}
         width={400}
-        open={accountDisableModalOpen}
-        title={`是否要设置用户状态：${userRowBtnTextMap[currentRow?.status]}`}
-        onOk={async () => {
-          const params = {
-            userId: currentRow?.userId,
-            status: currentRow?.status === 1 ? 2 : 1
+        formRef={editPasswordForm}
+        open={editPasswordModalOpen}
+        onOpenChange={(open) => {
+          // 表单关闭时重置表单
+          if (!open) {
+            setCurrentRow(undefined) // 重置当前操作的列
+            setEditPasswordType(1) // 重置类型
+            editPasswordForm.current?.resetFields();
           }
-          const res = await setBaseInfo(params)
-          if (res.success) {
-            message.success('设置成功')
-          }
-          handleAccountDisableModalOpen(false);
-          actionRef.current?.reload();
+          handleEditPasswordModalOpen(open);
         }}
-        onCancel={() => {
-          handleAccountDisableModalOpen(false);
+        onFinish={async (value) => {
+          const params = {
+            type: editPasswordType,
+            ...value
+          }
+          const res = await changePassword(params)
+          if (res.success) {
+            handleEditPasswordModalOpen(false)
+            message.success('修改成功')
+            // 刷新表格
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
         }}
       >
-      </Modal> */}
+        <ProFormText
+          name="userId"
+          label="用户ID"
+          placeholder="请输入"
+          hidden
+        />
+        <ProFormText
+          name="password"
+          label={setEditPasswordType === 1 ? '登录密码' : '提现密码'}
+          placeholder="请输入"
+        />
+      </ModalForm>
       <Modal
         width={400}
         open={accountDisableModalOpen}

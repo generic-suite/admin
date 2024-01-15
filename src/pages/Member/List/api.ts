@@ -82,3 +82,11 @@ export async function setBaseInfo(data: API.BaseInfo) {
     data,
   });
 }
+
+// 修改密码
+export async function changePassword(data: API.ChangePassword) {
+  return request<API.Result>(`/api/user/adminChangePassword`, {
+    method: 'POST',
+    data,
+  });
+}
