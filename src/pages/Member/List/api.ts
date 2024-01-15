@@ -31,6 +31,14 @@ export async function addMoney(params: API.AddMoney) {
   });
 }
 
+// 设置用户的体验金
+export async function setExperienceMoney(params: API.ExperienceMoney) {
+  return request<API.Result>('/api/mid-user/experience-gold', {
+    method: 'POST',
+    data: params,
+  });
+}
+
 // 查询用户的银行信息
 export async function getBankInfo(userId: number) {
   return request<API.Result>(`/api/mid-bank/getCard/${userId}`, {

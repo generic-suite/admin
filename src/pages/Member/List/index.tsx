@@ -1,5 +1,5 @@
 import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
-import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel, setBaseInfo, changePassword } from './api';
+import { getList, addData, removeData, updateData, addMoney, getBankInfo, setBankInfo, getVipLevel, setVipLevel, setBaseInfo, changePassword, setExperienceMoney } from './api';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons'; // 添加图标
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -41,6 +41,8 @@ const TableList: React.FC = () => {
   const [editVipLevelModalOpen, handleEditVipLevelModalOpen] = useState<boolean>(false);
   // 账号禁用的弹窗
   const [accountDisableModalOpen, handleAccountDisableModalOpen] = useState<boolean>(false);
+  // 体验金的弹窗
+  const [experienceMoneyModalOpen, handleExperienceMoneyModalOpen] = useState<boolean>(false);
   // 快捷操作的数据
   const [shortcutData, setShortcutData] = useState<any[]>([])
   // 加扣款的金额
@@ -154,11 +156,11 @@ const TableList: React.FC = () => {
         <div className='form-accountinfo' key="accountinfo">
           <div className='form-item flex'>
             <div className='form-item-label'>状态：</div>
-            <div className='form-item-value'>{record.status}</div>
+            <div className='form-item-value'>{record.status === 1 ? '正常' : '禁用'}</div>
           </div>
           <div className='form-item flex'>
             <div className='form-item-label'>交易：</div>
-            <div className='form-item-value'>{record.is_allow_trade}</div>
+            <div className='form-item-value'>{record.is_allow_trade === 1 ? '允许交易' : '禁止交易'}</div>
           </div>
           <div className='form-item flex'>
             <div className='form-item-label'>信用：</div>
@@ -181,6 +183,10 @@ const TableList: React.FC = () => {
           <div className='form-item flex'>
             <div className='form-item-label'>冻结：</div>
             <div className='form-item-value'>{record.freeze_money}</div>
+          </div>
+          <div className='form-item flex'>
+            <div className='form-item-label'>体验金：</div>
+            <div className='form-item-value'>{record.experience_money}</div>
           </div>
           <div className='form-item flex'>
             <div className='form-item-label'>累计充值：</div>
@@ -261,10 +267,6 @@ const TableList: React.FC = () => {
                 addForm.current?.setFieldsValue(record);
               }}
             >基本资料</Button>
-            <Button size="small" type="primary" onClick={() => {
-              showModal()
-              setCurrentRow(record)
-            }}>加扣款</Button>
             <Button size="small" type="primary" onClick={async () => {
               // 获取银行信息
               const res = await getBankInfo(record.userId)
@@ -320,6 +322,29 @@ const TableList: React.FC = () => {
                 })
               }}
             >提现密码</Button>
+          </div>
+          <div className='btn-flex' key="btn-line4">
+            <Button
+              size="small"
+              type="primary"
+              onClick={() => {
+                showModal()
+                setCurrentRow(record)
+              }}
+            >加扣款</Button>
+
+            <Button
+              size="small"
+              type="primary"
+              onClick={async () => {
+                await handleExperienceMoneyModalOpen(true)
+                editCardForm.current?.setFieldsValue({
+                  userId: record.userId,
+                  experience_money: record.experience_money
+                })
+                setCurrentRow(record)
+              }}
+            >体验金</Button>
           </div>
         </div>
 
@@ -444,6 +469,42 @@ const TableList: React.FC = () => {
       >
         <InputNumber className='flex' min={0} value={addSubtractNum} onChange={value => setAddSubtractNum(value as number)} />
       </Modal>
+
+      <ModalForm
+        title="体验金"
+        width={800}
+        formRef={editCardForm}
+        open={experienceMoneyModalOpen}
+        onOpenChange={(open) => {
+          // 表单关闭时重置表单
+          if (!open) {
+            editCardForm.current?.resetFields();
+          }
+          handleExperienceMoneyModalOpen(open);
+        }}
+        onFinish={async (value) => {
+          const params = {
+            userId: currentRow?.userId,
+            ...value
+          }
+          const res = await setExperienceMoney(params)
+          if (res.success) {
+            handleExperienceMoneyModalOpen(false)
+            // 刷新表格
+            actionRef.current?.reload();
+          }
+        }}
+      >
+        <ProFormText
+          name="userId"
+          hidden
+        />
+
+        <Form.Item label="体验金" name="experience_money">
+          <InputNumber min="0.00" precision={2}></InputNumber>
+        </Form.Item>
+      </ModalForm>
+
       {/* 编辑银行信息的弹窗 */}
       <ModalForm
         title="编辑银行信息"
