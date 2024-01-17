@@ -253,7 +253,7 @@ const TableList: React.FC = () => {
             ...value,
             content: richTextContent
           }
-          const success = await handleAddText(value as API.RuleListItem);
+          const success = await handleAddText(defaultValue);
           if (success) {
             handleModalOpen(false);
             // 刷新表格
