@@ -196,8 +196,28 @@ const TableList: React.FC = () => {
           <Button
             type="primary"
             key="primary"
-            onClick={() => {
-              handleModalOpen(true);
+            onClick={async () => {
+              await handleModalOpen(true);
+              // 初始化表单值
+              addForm.current?.setFieldsValue({
+                name: '',
+                level: 1,
+                img: '',
+                description: '',
+                order_amount_min: 0,
+                upgrade_reward: 0,
+                task_total: 0,
+                order_count: 0,
+                price_min: 0,
+                price_max: 100,
+                return_rate: 1,
+                continue_rate: 1,
+                withdraw_min: 1,
+                withdraw_max: 1,
+                withdraw_count: 1,
+                withdraw_order_count: 1,
+                withdraw_fee: 1,
+              });
             }}
           >
             <PlusOutlined />添加会员等级
@@ -298,7 +318,7 @@ const TableList: React.FC = () => {
           <Col span={12}>
             {/* 会员等级 */}
             <Form.Item label="会员等级" name="level" >
-              <InputNumber disabled={currentRow ? true : false} defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber disabled={currentRow ? true : false} style={{ width: '100%' }} />
             </Form.Item>
             {/* 描述 */}
             <ProFormText
@@ -309,81 +329,81 @@ const TableList: React.FC = () => {
           <Col span={12}>
             {/* 限制接单金额 */}
             <Form.Item label="限制接单金额" name="order_amount_min" >
-              <InputNumber defaultValue={0} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 升级奖励 */}
             <Form.Item label="升级奖励" name="upgrade_reward">
-              <InputNumber defaultValue={0} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
 
           <Col span={12}>
             {/* 任务总数 */}
             <Form.Item label="任务总数" name="task_total">
-              <InputNumber defaultValue={0} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 订单总数 */}
             <Form.Item label="订单总数" name="order_count">
-              <InputNumber defaultValue={0} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 价格范围-最低 */}
             <Form.Item label="价格范围-最低" name="price_min">
-              <InputNumber defaultValue={0} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
 
           <Col span={12}>
             {/* 价格范围-最高 */}
             <Form.Item label="价格范围-最高" name="price_max">
-              <InputNumber defaultValue={100} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 返现比例 */}
             <Form.Item label="返现比例" name="return_rate">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 连单佣金比例 */}
             <Form.Item label="连单佣金比例" name="continue_rate">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 最小提现金额 */}
             <Form.Item label="最小提现金额" name="withdraw_min">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 最大提现金额 */}
             <Form.Item label="最大提现金额" name="withdraw_max">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 单日提现次数 */}
             <Form.Item label="单日提现次数" name="withdraw_count">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 提现订单数 */}
             <Form.Item label="提现订单数" name="withdraw_order_count">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 提现手续费 */}
             <Form.Item label="提现手续费" name="withdraw_fee">
-              <InputNumber defaultValue={1} style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
