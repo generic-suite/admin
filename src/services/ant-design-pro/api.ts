@@ -40,7 +40,7 @@ export async function getNotices(options?: { [key: string]: any }) {
 }
 
 /** 获取文本列表  */
-export async function rule(
+export async function getTextList(
   params: {
     // query
     /** 当前的页码 */

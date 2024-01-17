@@ -1,4 +1,4 @@
-import { setTextConfig, removeRule, rule, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
+import { setTextConfig, removeRule, getTextList, updateRule, deleteTextConfig } from '@/services/ant-design-pro/api';
 import { FileExcelFilled, PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import { useForm, Controller } from 'react-hook-form';
@@ -38,53 +38,6 @@ const handleAddText = async (fields: API.RuleListItem) => {
   }
 }
 
-/**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('Configuring');
-  try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
-    });
-    hide();
-
-    message.success('Configuration is successful');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Configuration failed, please try again!');
-    return false;
-  }
-};
-
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.RuleListItem[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await removeRule({
-      key: selectedRows.map((row) => row.key),
-    });
-    hide();
-    message.success('Deleted successfully and will refresh soon');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Delete failed, please try again');
-    return false;
-  }
-};
 
 const textTypeMap = [
   { text: 'pages.website.basic.text.texttype.alert', value: '1' },
@@ -128,18 +81,9 @@ const TableList: React.FC = () => {
    * @zh-CN 新建窗口的弹窗
    *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
-  /**
-   * @en-US The pop-up window of the distribution update window
-   * @zh-CN 分布更新窗口的弹窗
-   * */
-  const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
-
-  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
   const addForm = useRef<FormInstance>();
-  const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
 
   /**
    * @en-US International configuration
@@ -190,6 +134,7 @@ const TableList: React.FC = () => {
           <FormattedMessage id="pages.searchTable.edit" />
         </a>,
         <Popconfirm
+          key="popConfirm"
           title="系统提示"
           description="确定删除该条文本配置信息吗?"
           onConfirm={async () => {
@@ -214,7 +159,7 @@ const TableList: React.FC = () => {
     <PageContainer>
       <ProTable<API.RuleListItem, API.PageParams>
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
@@ -229,7 +174,7 @@ const TableList: React.FC = () => {
             <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
-        request={rule}
+        request={getTextList}
         columns={columns}
       />
       <ModalForm
