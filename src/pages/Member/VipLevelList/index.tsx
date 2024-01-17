@@ -354,26 +354,26 @@ const TableList: React.FC = () => {
           <Col span={12}>
             {/* 价格范围-最低 */}
             <Form.Item label="价格范围-最低" name="price_min">
-              <InputNumber style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} addonAfter="%" />
             </Form.Item>
           </Col>
 
           <Col span={12}>
             {/* 价格范围-最高 */}
             <Form.Item label="价格范围-最高" name="price_max">
-              <InputNumber style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} addonAfter="%" />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 返现比例 */}
             <Form.Item label="返现比例" name="return_rate">
-              <InputNumber style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} addonAfter="%" />
             </Form.Item>
           </Col>
           <Col span={12}>
             {/* 连单佣金比例 */}
             <Form.Item label="连单佣金比例" name="continue_rate">
-              <InputNumber style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} addonAfter="%" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -403,7 +403,7 @@ const TableList: React.FC = () => {
           <Col span={12}>
             {/* 提现手续费 */}
             <Form.Item label="提现手续费" name="withdraw_fee">
-              <InputNumber style={{ width: '100%' }} />
+              <InputNumber style={{ width: '100%' }} addonAfter="%" />
             </Form.Item>
           </Col>
         </Row>
