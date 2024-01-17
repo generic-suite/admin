@@ -22,6 +22,7 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
+
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser({
@@ -33,6 +34,7 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+  console.log('🚀  环境变量:', REACT_APP_FILE_URL)
   // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
